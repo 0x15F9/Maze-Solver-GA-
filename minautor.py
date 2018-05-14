@@ -8,10 +8,10 @@ class Minautor:
         self.settings   = settings
         
         self.color  = [0, 0, 255]
-        self.radius = 10
+        self.radius = 20
         self.stroke = 2
 
-        self.x      = settings.screen_width / 2
+        self.x      = settings.screen_width // 2
         self.y      = self.radius + 10
 
     def get_pos(self):

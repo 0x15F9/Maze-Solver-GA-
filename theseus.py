@@ -1,18 +1,23 @@
 import pygame
+# from pygame.sprite import Sprite
 from random import choice
-class Theseus:
+import math
+
+class Theseus():
     """ Since Theseus killed the Minautor in its maze, the Genomes will be known as Theuseus """
-    def __init__(self, screen, settings):
+    def __init__(self, screen, settings, destination):
         """ Initialize Theseus' parameters """
+        # super().__init__()
         self.screen     = screen
         self.settings   = settings
+        self.destination= destination
         self.is_dead    = False
         self.has_reached= False
 
         self.radius = 5
         self.color = [255, 255, 255]
-        self.x = settings.screen_width / 2
-        self.y = settings.screen_height / 2
+        self.x = settings.screen_width // 2
+        self.y = settings.screen_height // 2
 
         self.brain = []
 
@@ -33,17 +38,24 @@ class Theseus:
 
     def check_reached(self):
         """ Checks if Theseus has reached the Minautor """
-        return False
+        m_x, m_y = self.destination.get_pos()
+        m_radius = self.destination.radius
+        distance_centre = math.sqrt((m_x - self.x)**2 + (m_y - self.y)**2)
+        sum_radii = m_radius + self.radius
+        if distance_centre < sum_radii:
+            self.color = pygame.colordict.THECOLORS['green']
+            self.has_reached = True
 
     def kill(self):
         """ Marks this instance as Dead"""
         self.is_dead = True
-        self.color = [255, 0, 0] # Turn RED when dead
+        self.color = (255, 0, 0)# Turn RED when dead
         self.aftermath()
 
     def update(self):
-        if self.is_dead == False:
+        if self.is_dead == False and self.has_reached == False:
             self.update_pos()
+            self.check_reached()
             if self.x >= self.settings.boundary['right'] or self.x <= self.settings.boundary['left'] or self.y >= self.settings.boundary['bottom'] or self.y <= self.settings.boundary['top']: 
                     self.kill()
         pygame.draw.circle(self.screen, self.color, self.get_pos(), self.radius)

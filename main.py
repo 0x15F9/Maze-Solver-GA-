@@ -13,8 +13,8 @@ def main():
     pygame.display.set_caption(ms_settings.caption)
     ms_clock = pygame.time.Clock()
 
-    ms_theseus = Theseus(ms_screen, ms_settings)
     ms_minautor = Minautor(ms_screen, ms_settings)
+    ms_theseus = Theseus(ms_screen, ms_settings, ms_minautor)
 
     while True:
         ms_clock.tick(ms_settings.FPS)
