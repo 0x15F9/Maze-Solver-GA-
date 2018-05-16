@@ -1,5 +1,6 @@
 import sys, pygame
-
+import json, time
+path = {}
 def event_check():
     """ Check if a key is pressed and respond accordingly """
     for event in pygame.event.get():
@@ -17,5 +18,4 @@ def update_screen(screen, settings, **kwargs):
         if key == "characters":
             for character in value:
                 character.update()
-
     pygame.display.flip()

@@ -1,22 +1,15 @@
 import pygame
+from actor import Actor
 
-class Minautor:
+class Minautor(Actor):
     """ Minautor will be the "destination" point of the genomes/Theseus """
     def __init__(self, screen, settings):
         """ Initialize the Minautor's parameters """
+        super().__init__(screen, settings, (settings.screen_width // 2, 50), image_path="assets/target.bmp")
         self.screen     = screen
         self.settings   = settings
+        # self.image = pygame.transform.scale(self.image, (10 ,10))
+        # self.rect = self.image.get_rect()
         
-        self.color  = [0, 0, 255]
-        self.radius = 20
-        self.stroke = 2
-
-        self.x      = settings.screen_width // 2
-        self.y      = self.radius + 10
-
-    def get_pos(self):
-        """ Returns the position as a tuple """
-        return (self.x, self.y)
-
     def update(self):
-        pygame.draw.circle(self.screen, self.color, self.get_pos(), self.radius, self.stroke)
+        super().display()

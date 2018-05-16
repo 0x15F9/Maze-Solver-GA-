@@ -14,11 +14,10 @@ def main():
     ms_clock = pygame.time.Clock()
 
     ms_minautor = Minautor(ms_screen, ms_settings)
-    ms_theseus = Theseus(ms_screen, ms_settings, ms_minautor)
-
+    ms_swarm = [Theseus(ms_screen, ms_settings, ms_minautor) for i in range(25)]
     while True:
         ms_clock.tick(ms_settings.FPS)
         event_check()
-        update_screen(ms_screen, ms_settings, characters=[ms_theseus, ms_minautor])
+        update_screen(ms_screen, ms_settings, characters=[*ms_swarm, ms_minautor])
 
 main()

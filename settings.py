@@ -1,8 +1,8 @@
 class Settings:
     """ Class definition for General Settings of the program"""
     def __init__(self):
-        self.screen_width   = 800
-        self.screen_height  = 640
+        self.screen_width   = 240
+        self.screen_height  = 360
         self.caption        = "Maze Solver"
         self.bg_color       = [0, 0, 0]
         self.FPS            = 120
