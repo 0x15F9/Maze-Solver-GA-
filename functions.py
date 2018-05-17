@@ -10,12 +10,13 @@ def event_check():
             if event.key == pygame.K_q:
                 sys.exit()
 
-def update_screen(screen, settings, **kwargs):
+def update_screen(screen, settings, characters=[], replay=[]):
     """ Updates the screen in the <While True> loop in main """
     screen.fill(settings.bg_color)
 
-    for key, value in kwargs.items():
-        if key == "characters":
-            for character in value:
-                character.update()
+    for character in characters:
+        character.update()
+    # for character in replay:
+
+
     pygame.display.flip()

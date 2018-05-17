@@ -8,22 +8,10 @@ from minautor import Minautor
 from ga import Brain
 from maze import Maze
 
-def make_maze(screen):
-    return [
-        Maze(screen, (10, 10), width=220), #Top
-        Maze(screen, (10, 10), height=340), # Left
-        Maze(screen, (10, 350), width=225), # Bottom
-        Maze(screen, (230, 10), height=340) # Right
-    ]
-
-def check_collide(theseus, maze, target):
-    collide_maze = pygame.sprite.spritecollide(theseus, maze, False)
-    reach_minautor = pygame.sprite.collide_rect(theseus, target)
-    if len(collide_maze) == True:
-        theseus.kill()
-    if reach_minautor:
-        theseus.reach_target()
-
+def follow_path(t):
+    path = [(113, 180), (104, 180), (99, 188), (93, 179), (85, 184), (78, 184), (86, 184), (80, 177), (74, 183), (68, 178), (60, 170), (60, 178), (53, 183), (53, 174), (47, 180), (47, 185), (53, 194), (53, 189), (46, 180), (51, 174), (51, 174), (58, 174), (63, 181), (68, 181), (76, 189), (71, 189), (71, 198), (64, 189), (64, 180), (55, 180), (55, 172), (49, 172), (49, 172), (55, 178), (48, 178), (54, 178), (45, 187), (45, 179), (39, 179), (32, 179), (25, 187), (31, 178), (31, 172), (24, 178), (30, 173), (23, 164), (23, 171), (23, 171), (16, 166), (24, 166), (15, 172), (15, 163), (15, 158), (8, 152)]
+    for x_coord, y_coord in path:
+        t.move
 def main():
     pygame.init()
     ms_settings = Settings()
@@ -31,20 +19,13 @@ def main():
     pygame.display.set_caption(ms_settings.caption)
     ms_clock = pygame.time.Clock()
 
-    a = Theseus(ms_screen, ms_settings)
-    # b = [Theseus(ms_screen, ms_settings) for i in range(25)]
-    m = Minautor(ms_screen, ms_settings)
-    maze = Group()
-    maze.add(make_maze(ms_screen))
+    brain = Brain(ms_settings, ms_screen, population_size=25)
+    theseus = Theseus(ms_screen, ms_settings)
 
     while True:
         ms_clock.tick(ms_settings.FPS)
         event_check()
-        check_collide(a, maze, m)
-        
-        # for z in b:
-        #     check_collide(z, maze, m)
-            
-        update_screen(ms_screen, ms_settings, characters=[maze, m, a, ])
+        update_screen(ms_screen, ms_settings, characters=list(brain.get_for_update()))
+        # update_screen(ms_screen, ms_settings, characters=[theseus])
 
 main()
